@@ -9,6 +9,10 @@ path = join(BASE_DIR, 'inspector')
 if path not in sys.path:
     sys.path.insert(0, path)
 
+# define dir's
+TEMPLATE_DIR = join(BASE_DIR, 'inspector', 'templates')
+DATA_DIR = join(BASE_DIR, 'inspector', 'data')
+
 # Twitter authentication information
 # must be redefined in settings local
 TWITTER_OAUTH_INFO = dict(
