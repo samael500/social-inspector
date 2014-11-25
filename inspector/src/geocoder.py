@@ -63,3 +63,25 @@ class CachedGeocoder(Geocoder):
         """ Save geocodes as file """
         with open(self.get_geocode_path, 'w') as geocodes_file:
             geocodes_file.write(json.dumps(self.geocodes))
+
+    def tweets_to_coords(self, tweets):
+        """ Convert list of tweets to list of (message, coord) """
+        result = []
+        for tweet in tweets:
+            coord = None
+            if tweet['coordinates']:
+                coord = tuple(tweet['coordinates']['coordinates'])
+            elif tweet['place']:
+                coord = tweet['place']['bounding_box']['coordinates'][0][0]
+            elif tweet['user'] and tweet['user']['location']:
+                try:
+                    gc = self.geocode(tweet['user']['location'])
+                    coord = (gc['lon'], gc['lat'])
+                except Exception, e:
+                    print e.message
+            if not coord:
+                continue
+            # coord must be an tuple!
+            assert isinstance(coord, tuple)
+            result.append((tweet['text'], coord, tweet['user']['lang']))
+        return result

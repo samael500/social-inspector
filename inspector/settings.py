@@ -12,6 +12,7 @@ if path not in sys.path:
 # define dir's
 TEMPLATE_DIR = join(BASE_DIR, 'inspector', 'templates')
 DATA_DIR = join(BASE_DIR, 'inspector', 'data')
+RESULT_DIR = join(BASE_DIR, 'out')
 
 # Twitter authentication information
 # must be redefined in settings local
