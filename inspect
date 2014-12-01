@@ -1,0 +1,13 @@
+#!./venv/bin/python
+# -*- coding: utf-8 -*-
+
+import argparse
+from inspector.engine import Inspector
+
+parser = argparse.ArgumentParser(description='')
+parser.add_argument('words', type=str, nargs='*', help='an search keywords')
+args = parser.parse_args()
+
+if __name__ == '__main__':
+    query = ' OR '.join(args.words).strip()
+    Inspector(query)
