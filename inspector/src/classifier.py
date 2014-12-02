@@ -59,6 +59,4 @@ class Classifier(object):
         for tweet in tweets:
             sentiment = self.classify_tweet(tweet[0])
             tweet.append(sentiment)
-            print tweet
-        print tweets
         return tweets

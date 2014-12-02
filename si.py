@@ -9,8 +9,18 @@ import yaml
 cls = Classifier()
 geocoder = Geocoder()
 twitter = Twitter()
+print ''
 
-twitter.timeout = 0
+xx = twitter.search(u'отчаяние lang:ru', emotion=':(')
+xxx = []
+for x in xx['statuses']:
+    if x['text'].lower() not in xxx:
+        xxx.append(x['text'].lower().replace('"', "'").replace('\n', " "))
+for x in xxx:
+    print u'- "%s"' % x
+
+sys.exit()
+# twitter.timeout = 0
 
 from inspector import settings
 from geojson import Feature, Point, FeatureCollection
@@ -22,14 +32,14 @@ from random import choice
 query = 'крым'
 tweets = []
 tweets = twitter.search_interval(u'крым lang:ru')
-tweets.extend(twitter.search_interval(u'crimea lang:es'))
-tweets.extend(twitter.search_interval(u'crimea lang:pt'))
+# tweets.extend(twitter.search_interval(u'crimea lang:es'))
+# tweets.extend(twitter.search_interval(u'crimea lang:pt'))
 tweets.extend(twitter.search_interval(u'crimea lang:en'))
 # tweets.extend(twitter.search_interval(u'happy lang:en'))
 # tweets.extend(twitter.search_interval(u'sad lang:en', emotion=':(', ))
 # tweets.extend(twitter.search(u'sad lang:en', emotion=':)', count=10, )['statuses'])
-tweets.extend(twitter.search_interval(u'crimea lang:de'))
-tweets.extend(twitter.search_interval(u'克里米亚 lang:zh'))
+# tweets.extend(twitter.search_interval(u'crimea lang:de'))
+# tweets.extend(twitter.search_interval(u'克里米亚 lang:zh'))
 
 coords = geocoder.tweets_to_coords(tweets)
 coords = cls.classify_coord_tweets(coords)
@@ -57,7 +67,10 @@ for key, value in crd.iteritems():
         continue
     point = Point(value['c'])
     color = max(value['color'].iteritems(), key=operator.itemgetter(1))[0]
-    feature = Feature(geometry=point, properties=dict(weight=value['w'], color=colors[color]))
+    feature = Feature(geometry=point, properties=dict(weight=value['color'][color], color=colors[color]))
+    color = min(value['color'].iteritems(), key=operator.itemgetter(1))[0]
+    feature = Feature(geometry=point, properties=dict(weight=value['color'][color], color=colors[color]))
+    # feature = Feature(geometry=point, properties=dict(weight=value['w'], color=colors[color]))
     features.append(feature)
 
 env = Environment(loader=FileSystemLoader(settings.TEMPLATE_DIR))
