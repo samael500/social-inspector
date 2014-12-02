@@ -83,5 +83,5 @@ class CachedGeocoder(Geocoder):
                 continue
             # coord must be an tuple!
             assert isinstance(coord, tuple)
-            result.append((tweet['text'], coord, tweet['user']['lang']))
+            result.append([tweet['text'], coord, tweet['user']['lang']])
         return result
