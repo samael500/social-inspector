@@ -9,8 +9,8 @@ import yaml
 cls = Classifier()
 geocoder = Geocoder()
 twitter = Twitter()
+"""
 print ''
-
 xx = twitter.search(u'отчаяние lang:ru', emotion=':(')
 xxx = []
 for x in xx['statuses']:
@@ -21,7 +21,7 @@ for x in xxx:
 
 sys.exit()
 # twitter.timeout = 0
-
+"""
 from inspector import settings
 from geojson import Feature, Point, FeatureCollection
 from jinja2 import Environment, FileSystemLoader
@@ -32,13 +32,10 @@ from random import choice
 query = 'крым'
 tweets = []
 tweets = twitter.search_interval(u'крым lang:ru')
-# tweets.extend(twitter.search_interval(u'crimea lang:es'))
-# tweets.extend(twitter.search_interval(u'crimea lang:pt'))
+tweets.extend(twitter.search_interval(u'crimea lang:es'))
+tweets.extend(twitter.search_interval(u'crimea lang:pt'))
 tweets.extend(twitter.search_interval(u'crimea lang:en'))
-# tweets.extend(twitter.search_interval(u'happy lang:en'))
-# tweets.extend(twitter.search_interval(u'sad lang:en', emotion=':(', ))
-# tweets.extend(twitter.search(u'sad lang:en', emotion=':)', count=10, )['statuses'])
-# tweets.extend(twitter.search_interval(u'crimea lang:de'))
+tweets.extend(twitter.search_interval(u'crimea lang:de'))
 # tweets.extend(twitter.search_interval(u'克里米亚 lang:zh'))
 
 coords = geocoder.tweets_to_coords(tweets)
