@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>{{ title }}</title>
         <style>
             html, body, #map-canvas {
                 margin: 0;
@@ -11,9 +13,7 @@
         <!-- google maps api include -->
         <script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script>
         <!-- custom google maps create -->
-        <script type="text/javascript">
-            var mapdata = {{ geoJson }};
-        </script>
+        <script type="text/javascript">var mapdata = {{ geoJson }};</script>
         <script type="text/javascript">
             var map;
 
@@ -34,8 +34,6 @@
                         {"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}
                     ]
                 };
-
-
                 // create new google maps
                 map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
                 // append geodata to map

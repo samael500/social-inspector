@@ -22,10 +22,7 @@ for x in xxx:
 sys.exit()
 # twitter.timeout = 0
 """
-from inspector import settings
-from geojson import Feature, Point, FeatureCollection
-from jinja2 import Environment, FileSystemLoader
-from datetime import datetime, timedelta
+
 from random import choice
 
 

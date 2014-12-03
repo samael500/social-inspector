@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from settings import TWITTER_OAUTH_INFO
+from inspector.settings import TWITTER_OAUTH_INFO
 from twython import Twython, TwythonError
 from datetime import datetime, timedelta
 

@@ -22,8 +22,9 @@ if __name__ == '__main__':
         # search tweets, and analyze it
         query = u' OR '.join((word.decode('utf-8') for word in args.words)).strip()
         classified_tweets = inspector.search(**dict(query=query, since=args.since, until=args.until))
-    if args.map:
-        pass
+        print ('Classified compleate!')
+        if args.map:
+            inspector.create_map(classified_tweets, query)
     if args.classify:
         message = u' '.join((word.decode('utf-8') for word in args.words)).strip()
         print u'{msg}: {cls}'.format(msg=message, cls=inspector.classify(message.lower()))
