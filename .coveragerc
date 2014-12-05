@@ -1,0 +1,11 @@
+[report]
+omit =
+    venv/*
+    */settings*
+    */python?.?/*
+    */site-packages/*
+    */tests/*
+
+exclude_lines =
+    pragma: no cover
+    except Exception

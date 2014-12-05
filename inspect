@@ -1,0 +1,30 @@
+#!./venv/bin/python
+# -*- coding: utf-8 -*-
+
+import argparse
+from inspector.engine import Inspector
+
+parser = argparse.ArgumentParser(description='')
+parser.add_argument('words', type=str, nargs='*', help='an search keywords')
+parser.add_argument('--map', nargs='?', default=False, const=True, help='to plot results on map')
+parser.add_argument('--since', nargs='?', help='the date start of search period')
+parser.add_argument('--until', nargs='?', help='the date end of search period')
+parser.add_argument('-c', '--classify', nargs='?', default=False, const=True, help='classify given message')
+parser.add_argument('-s', '--search', nargs='?', default=False, const=True, help='search twitter data')
+
+
+args = parser.parse_args()
+
+if __name__ == '__main__':
+    # init inspector
+    inspector = Inspector()
+    if args.search:
+        # search tweets, and analyze it
+        query = u' OR '.join((word.decode('utf-8') for word in args.words)).strip()
+        classified_tweets = inspector.search(**dict(query=query, since=args.since, until=args.until))
+        print ('Classified compleate!')
+        if args.map:
+            inspector.create_map(classified_tweets, query)
+    if args.classify:
+        message = u' '.join((word.decode('utf-8') for word in args.words)).strip()
+        print u'{msg}: {cls}'.format(msg=message, cls=inspector.classify(message.lower()))
