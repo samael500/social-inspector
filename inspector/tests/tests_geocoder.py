@@ -2,7 +2,6 @@
 
 import unittest
 from inspector.src.geocoder import CachedGeocoder
-from settings import DEBUG
 
 import os
 
@@ -34,7 +33,6 @@ class TestGeocoder(unittest.TestCase):
         self.assertEquals(self.geocoder.geocodes, dict())
         # set data to geocoder dict
         test_coords = dict(test=dict(lat=3.3, lon=5.5))
-        filepath = self.geocoder.get_geocode_path
         self.geocoder.geocodes.update(test_coords)
         # delete obj to save to file
         del self.geocoder

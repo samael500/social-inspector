@@ -2,7 +2,7 @@
 
 from geojson import Feature, Point, FeatureCollection
 from jinja2 import Environment, FileSystemLoader
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from inspector import settings
 from inspector.src.twitter import Twitter

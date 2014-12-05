@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from inspector.settings import TWITTER_OAUTH_INFO
-from twython import Twython, TwythonError
+from twython import Twython
 from datetime import datetime, timedelta
 
 import time
@@ -16,7 +16,6 @@ class Twitter(object):
     date_format = '%Y-%m-%d'
     geocode = u'44.948056,34.104167,250km'
     timeout = 1
-
 
     def __init__(self, auth=TWITTER_OAUTH_INFO):
         self.twitter = Twython(**auth)
