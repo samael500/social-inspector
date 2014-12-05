@@ -30,3 +30,9 @@ try:
     from settings_local import *  # noqa
 except ImportError:
     pass
+
+if 'travis' in os.environ:
+    try:
+        from settings_travis import *  # noqa
+    except ImportError:
+        pass
