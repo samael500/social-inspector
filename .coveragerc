@@ -5,3 +5,7 @@ omit =
     */python?.?/*
     */site-packages/*
     */tests/*
+
+exclude_lines =
+    pragma: no cover
+    except Exception

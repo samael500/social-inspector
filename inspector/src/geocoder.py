@@ -18,13 +18,17 @@ class CachedGeocoder(Geocoder):
     filename_suffix = '.json'
 
     def __init__(self, *args, **kwargs):
+        filename = kwargs.pop('filename', None)
         super(CachedGeocoder, self).__init__(*args, **kwargs)
+        if filename:
+            self.filename = filename
         # load codes from file
         self.load_geocodes()
 
     def __del__(self):
         # save codes to file
-        self.geocodes.update({'': dict(lat=0, long=0)})
+        if not len(self.geocodes):
+            self.geocodes.update({'': dict(lat=0, lon=0)})
         self.save_geocodes()
 
     def geocode(self, address, **kwargs):

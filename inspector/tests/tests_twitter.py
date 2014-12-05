@@ -2,14 +2,13 @@
 
 import unittest
 from inspector.src.twitter import Twitter
-from settings import DEBUG
+from inspector.src.geocoder import CachedGeocoder
 
 
 class TestTwitter(unittest.TestCase):
 
     """ Test twitter class """
 
-    # @unittest.skipIf(DEBUG, "Don't test when debug")
     def setUp(self):
         self.twitter = Twitter()
 
@@ -24,7 +23,7 @@ class TestTwitter(unittest.TestCase):
         """ Test search tweets """
         self.twitter.query_string = u'#test lang:en'
         self.twitter.timeout = 0
-        search_list = self.twitter.search()
+        search_list = self.twitter.search(count=10)
         for tweet in search_list['statuses']:
             self.assertIn(u'test', tweet['text'].lower())
 
@@ -32,6 +31,16 @@ class TestTwitter(unittest.TestCase):
         """ Test search tweets """
         self.twitter.query_string = u'#test lang:en'
         self.twitter.timeout = 0
-        search_list = self.twitter.search_interval(query=u'#test lang:en')
+        search_list = self.twitter.search_interval(query=u'#test lang:en', count=1)
         for tweet in search_list:
             self.assertIn(u'test', tweet['text'].lower())
+
+    def test_tweet2coord(self):
+        """ Search tweets and get it coords """
+        self.twitter.query_string = u'#test lang:en'
+        self.twitter.timeout = 0
+        search_list = self.twitter.search(count=10)['statuses']
+        geocoder = CachedGeocoder()
+        coords = geocoder.tweets_to_coords(search_list)
+        for coord in coords:
+            self.assertTrue(isinstance(coord[1], tuple))
