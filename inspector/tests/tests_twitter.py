@@ -4,6 +4,8 @@ import unittest
 from inspector.src.twitter import Twitter
 from inspector.src.geocoder import CachedGeocoder
 
+from datetime import datetime
+
 
 class TestTwitter(unittest.TestCase):
 
@@ -31,7 +33,8 @@ class TestTwitter(unittest.TestCase):
         """ Test search tweets """
         self.twitter.query_string = u'#test lang:en'
         self.twitter.timeout = 0
-        search_list = self.twitter.search_interval(query=u'#test lang:en', count=1)
+        since = datetime.now().strftime('%Y-%m-%d')
+        search_list = self.twitter.search_interval(query=u'#test lang:en', since=since)
         for tweet in search_list:
             self.assertIn(u'test', tweet['text'].lower())
 
