@@ -14,3 +14,9 @@ pep8:
 
 pyflakes:
 	pylama -l pyflakes inspector/
+
+install:
+	mkdir venv && echo "Virtualenv directory was created!"
+	virtualenv --no-site-packages --prompt="(social-inspector)" venv
+	venv/bin/pip install -r requirements.txt
+	venv/bin/python -c "import nltk; nltk.download('punkt')"
