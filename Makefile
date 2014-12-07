@@ -1,6 +1,9 @@
 test:
 	. venv/bin/activate; nosetests --color --nologcapture inspector/
 
+test_cover:
+	. venv/bin/activate; nosetests --with-coverage --cover-package=inspector/
+
 ci_test:
 	nosetests --with-coverage --cover-package=inspector --color inspector/
 	make pep8
@@ -11,3 +14,9 @@ pep8:
 
 pyflakes:
 	pylama -l pyflakes inspector/
+
+install:
+	mkdir venv && echo "Virtualenv directory was created!"
+	virtualenv --no-site-packages --prompt="(social-inspector)" venv
+	venv/bin/pip install -r requirements.txt
+	venv/bin/python -c "import nltk; nltk.download('punkt')"

@@ -22,7 +22,7 @@ class TestGeocoder(unittest.TestCase):
         os.remove(self.filepath)
 
     def test_geocoder_constants(self):
-        """ Check twitter class has correct values """
+        """ Check geocoder class has correct values """
         self.assertEquals(CachedGeocoder.timeout, 2)
         self.assertEquals(CachedGeocoder.geocodes, dict())
         self.assertEquals(CachedGeocoder.filename, 'geocode')
