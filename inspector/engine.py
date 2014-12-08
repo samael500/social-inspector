@@ -16,16 +16,18 @@ class Inspector(object):
 
     """ The engine inspector class """
 
+    languages = ('ru', 'en', 'es', 'pt', 'de')
+
     def __init__(self):
         self.twitter = Twitter()
         self.geocoder = CachedGeocoder()
         self.classifier = Classifier()
 
-    def search(self, query, since, until,):
+    def search(self, query, since, until):
         """ Search tweets data and classify it """
         print ('Start search!')
         tweets = []
-        for lang in ('ru', 'en', 'es', 'pt', 'de'):
+        for lang in self.languages:
             tweets.extend(self.twitter.search_interval(
                 query=u'{query} lang:{lang}'.format(query=query, lang=lang), since=since, until=until))
         # get coords from tweets and classify it
